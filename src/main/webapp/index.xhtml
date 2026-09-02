@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:faces="jakarta.faces"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:pt="jakarta.faces.passthrough"
+      xmlns:cc="jakarta.faces.composite"
+      xmlns:c="jakarta.tags.core"
+      xmlns:fn="jakarta.tags.functions"
+      xmlns:p="primefaces">
+    <h:head>
+        <title>Mi Proyecto JSF 3</title>
+        <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css"/>
+        <h:outputStylesheet library="css" name="layout.css"/>
+    </h:head>
+    <h:body>
+        <div class="layout-wrapper">
+            <div class="layout-content">
+                <div class="m-4">
+                    <div class="flex justify-content-center flex-wrap">
+                        <h1 class="flex align-items-center justify-content-center font-bold m-2">
+                            CRUD CON JSF 5.0
+                        </h1>
+                        <div class="grid">
+                            <div class="col-12">
+                                <h:form id="form">
+                                    <p:growl id="messages" showDetail="true" />
+                                    <p:toolbar>
+                                        <p:toolbarGroup>
+                                            <p:commandButton value="Nuevo" 
+                                                             icon="pi pi-plus" 
+                                                             actionListener="#{usuarioMB.nuevo()}"
+                                                             update=":dialogs:panel-content" 
+                                                             oncomplete="PF('dlgUsuarioRegistro').show()"
+                                                             styleClass="ui-button-success" 
+                                                             style="margin-right: .5rem">
+                                                <p:resetInput target=":dialogs:panel-content" />
+                                            </p:commandButton>
+                                        </p:toolbarGroup>
+                                    </p:toolbar>
+                                </h:form>
+                                
+                                <h:form id="dialogs">
+                                    <p:dialog header="Usuario" 
+                                              showEffect="fade" 
+                                              modal="true" 
+                                              widgetVar="dlgUsuarioRegistro"
+                                              responsive="true">
+                                        <p:outputPanel id="panel-content" class="ui-fluid">
+                                            <p:outputPanel rendered="#{not empty usuarioMB.usuario}">
+                                                <div class="field">
+                                                    <p:outputLabel for="nombre">Nombre</p:outputLabel>
+                                                    <p:inputText 
+                                                        id="nombre" 
+                                                        value="#{usuarioMB.usuario.nombre}" 
+                                                        required="true" />
+                                                </div>
+                                                <div class="field">
+                                                    <p:outputLabel for="nickname">Nick Name</p:outputLabel>
+                                                    <p:inputText 
+                                                        id="nickname" 
+                                                        value="#{usuarioMB.usuario.nickName}" 
+                                                        required="true" />
+                                                </div>
+                                            </p:outputPanel>
+                                        </p:outputPanel>
+
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Guardar" 
+                                                icon="pi pi-check" 
+                                                actionListener="#{usuarioMB.guardar()}"
+                                                update="panel-content" 
+                                                process="panel-conten @this" />
+                                            
+                                            <p:commandButton value="Cancelar"
+                                                icon="pi pi-times" 
+                                                onclick="PF('dlgUsuarioRegistro').hide()"
+                                                class="ui-button-secondary" 
+                                                type="button" />
+                                        </f:facet>
+                                    </p:dialog>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+
